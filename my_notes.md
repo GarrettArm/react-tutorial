@@ -50,7 +50,13 @@ ReactDOM.render(
 
 ### State // Lifecycle
 
+Props is dict used as arguments for the child components.
+  - they should be immutable.
+
 State is like props, but is encapsulated in a component.
+  - it's intended to change.
+
+
 
 #### Class-based components
 
@@ -121,4 +127,41 @@ class Toggle extends React.Component {
 
 Key attribute on list items can be good for React somehow.
 
-### Forms
+### Controlled Components
+
+Forms are a good use-case.  It could both describe how it's rendered + describe how it does.  
+
+```jsx
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: ""};
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert("A name was submitted: " + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
+```  
+
+### Lifting up state
+
