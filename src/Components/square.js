@@ -10,7 +10,7 @@ Square.propTypes = {
 function Square (props) {
   const { id, value, handleChange } = props
   return (
-    <button className='square' key={id.toString()} onClick={() => handleChange(id, id.toString())}>
+    <button className='square' key={id.toString()} onClick={() => handleChange(id)}>
       {value}
     </button>
   )
