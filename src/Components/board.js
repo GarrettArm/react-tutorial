@@ -1,44 +1,46 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useState } from 'react'
 
 import Square from './square.js'
 
-class Board extends React.Component {
-  renderSquare (i) {
-    return (
-      <Square
-        value={this.props.squares[i]}
-        onClick={() => this.props.onClick(i)}
-      />
-    )
-  }
-
-  render () {
-    return (
-      <div>
-        <div className='board-row'>
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className='board-row'>
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className='board-row'>
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
-    )
-  }
+const initialSquareState = {
+  0: null,
+  1: null,
+  2: null,
+  3: null,
+  4: null,
+  5: null,
+  6: null,
+  7: null,
+  8: null
 }
 
-Board.propTypes = {
-  squares: PropTypes.array,
-  onClick: PropTypes.func
+function Board () {
+  const [squareState, setSquareState] = useState(initialSquareState)
+  const handleChange = (i, value) => {
+    setSquareState({ ...squareState, [i]: value })
+  }
+  const renderSquare = (i) => {
+    return <Square id={i} value={squareState[i]} handleChange={handleChange} />
+  }
+  return (
+    <div>
+      <div className='board-row'>
+        {renderSquare(0)}
+        {renderSquare(1)}
+        {renderSquare(2)}
+      </div>
+      <div className='board-row'>
+        {renderSquare(3)}
+        {renderSquare(4)}
+        {renderSquare(5)}
+      </div>
+      <div className='board-row'>
+        {renderSquare(6)}
+        {renderSquare(7)}
+        {renderSquare(8)}
+      </div>
+    </div>
+  )
 }
 
 export default Board

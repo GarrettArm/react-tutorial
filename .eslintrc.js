@@ -19,9 +19,11 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2018
   },
+  plugins: ["react", "react-hooks",],
   rules: {
     'no-var': 'warn',
-    'no-console': 'warn'
+    'no-console': 'warn',
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
   }
-
 }

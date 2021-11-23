@@ -165,3 +165,19 @@ class NameForm extends React.Component {
 
 ### Lifting up state
 
+
+
+### useState hook
+
+if state is an object, you can update the state object with this syntax:
+
+```jsx
+const initialS = {'a': 'b', 'c': 'd'}
+const [s, setS] = useState(initialS)
+
+const handleChange = (i, value) => {
+  setS({ ...s, [i]: value })
+}
+
+// handleChange('a', 'hello')  results in s = {'a': 'hello', 'b': 'd'} and tells React to push the changes onward
+```

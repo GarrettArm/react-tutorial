@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Game from './Components/game.js'
+import Board from './Components/board.js'
 
 import './index.css'
 
 ReactDOM.render(
-  <Game />,
+  <Board />,
   document.getElementById('root')
 )
