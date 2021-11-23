@@ -36,6 +36,7 @@ Components are like:  func component(props) => {intended element}
 
     - they come in function & class varieties
     - they must be pure functions & ßnever mutate the arguments
+
 ```jsx
 function Welcome(props) {
   return <h1>Hello, {props.name}</h1>;
@@ -52,11 +53,10 @@ ReactDOM.render(
 
 Props is dict used as arguments for the child components.
   - they should be immutable.
+  - if you do `<Compon id={x} value={y} h={z} />` then Compon(props) then props == {id: x, value: y, h: z} 
 
 State is like props, but is encapsulated in a component.
   - it's intended to change.
-
-
 
 #### Class-based components
 
@@ -91,7 +91,7 @@ or
 ```jsx
 class Toggle extends React.Component {
   constructor(props) {
-    // This binding is necessary to make `this` work in the callback
+    // This binding is necessary in class Components to make `this` work in the callback
     this.doThing = this.doThing.bind(this);
   }
 
@@ -110,6 +110,7 @@ class Toggle extends React.Component {
 or
 
 ```jsx
+// javascript can't find a good phrasing for anything, so it makes several attempts at syntax
 class Toggle extends React.Component {
   doThing = () => {
         console.log("hi");
@@ -129,7 +130,7 @@ Key attribute on list items can be good for React somehow.
 
 ### Controlled Components
 
-Forms are a good use-case.  It could both describe how it's rendered + describe how it does.  
+Forms are a good case for controlled components.  It could both describe how it's rendered + describe how it does.  
 
 ```jsx
 class NameForm extends React.Component {
@@ -165,7 +166,9 @@ class NameForm extends React.Component {
 
 ### Lifting up state
 
+{{ notes missing }}
 
+# Starting over
 
 ### useState hook
 
