@@ -172,15 +172,35 @@ class NameForm extends React.Component {
 
 ### useState hook
 
+notes from: http://www.room51.co.uk/tutorials/react/usestate/part1.html
+
+declared with:
+
+```jsx
+const [a, setA] = useState(defaultA)
+```
+
+the setA(newA) method is called in one block.  the 'a' variable isn't changed until the set(A) returns.
+
+
 if state is an object, you can update the state object with this syntax:
 
 ```jsx
 const initialS = {'a': 'b', 'c': 'd'}
 const [s, setS] = useState(initialS)
+const [t, setT] = useState('something')
 
 const handleChange = (i, value) => {
   setS({ ...s, [i]: value })
+  setT('other')
 }
-
-// handleChange('a', 'hello')  results in s = {'a': 'hello', 'b': 'd'} and tells React to push the changes onward
+handleChange('a', 'hello') // results in s = {'a': 'hello', 'b': 'd'} and tells React to push the changes onward
 ```
+
+handleChange() changes s & t after handleChange runs, and before the component refreshes.
+This may be caused by async, or it may some sort of ACID for the function by React.  I don't know.
+This means you cannot do `setT('other') then if (t === 'other'), because t will probably still be 'something' until after handleChange is done.
+Something that's acting as I expect is when I put the `winner = hasWinner(boardState)` outside the handler.  Then winner is set on component refresh, & before handleChange() runs.
+
+
+

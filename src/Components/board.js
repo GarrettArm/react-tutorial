@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 
 import Square from './square.js'
+import StatusMessage from './statusMessage.js'
 
+const initialMarkState = 'X'
 const initialBoardState = {
   0: null,
   1: null,
@@ -13,8 +15,6 @@ const initialBoardState = {
   7: null,
   8: null
 }
-
-const initialMarkState = 'X'
 
 function isSquareUsed (boardState, i) {
   if (boardState[i] === null) {
@@ -55,30 +55,23 @@ function Board () {
   const [boardState, setBoardState] = useState(initialBoardState)
   const [markState, setMarkState] = useState(initialMarkState)
   const winner = hasWinner(boardState)
+
   const handleChange = (i) => {
-    if (isSquareUsed(boardState, i)) {
-      return
-    }
-    if (winner !== null) {
-      return
-    }
+    if (isSquareUsed(boardState, i)) { return }
+    if (winner !== null) { return }
     setBoardState({ ...boardState, [i]: markState })
     setMarkState(alternateMarks(markState))
   }
+
   const renderSquare = (i) => {
     return <Square id={i} value={boardState[i]} handleChange={handleChange} />
   }
 
-  const statusMessage = (winner, markState) => {
-    if (winner) {
-      return `Winner: ${winner}`
-    } else {
-      return `Next player: ${markState}`
-    }
-  }
   return (
     <div>
-      <div className='status'>{statusMessage(winner, markState)}</div>
+      <div className='status'>
+        <StatusMessage winner={winner} markState={markState} />
+      </div>
       <div className='board-row'>
         {renderSquare(0)}
         {renderSquare(1)}
