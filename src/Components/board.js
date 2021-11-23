@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 import Square from './square.js'
 import StatusMessage from './statusMessage.js'
@@ -43,34 +44,49 @@ function hasWinner (squares) {
   return null
 }
 
-function alternateMarks (currentMark) {
-  if (currentMark === 'X') {
+function whichNextMark (history) {
+  if (history.length % 2 === 0) {
     return 'O'
-  } else {
-    return 'X'
   }
+  return 'X'
 }
 
-function Board () {
+Board.propTypes = {
+  history: PropTypes.array,
+  setHistory: PropTypes.func
+}
+
+function Board (props) {
+  const { history, setHistory } = props
+
   const [boardState, setBoardState] = useState(initialBoardState)
   const [markState, setMarkState] = useState(initialMarkState)
+
   const winner = hasWinner(boardState)
 
-  const handleChange = (i) => {
+  const handleMark = (i) => {
     if (isSquareUsed(boardState, i)) { return }
     if (winner !== null) { return }
     setBoardState({ ...boardState, [i]: markState })
-    setMarkState(alternateMarks(markState))
+    setMarkState(whichNextMark(history))
+    setHistory([...history, boardState])
+  }
+
+  const revertHistory = () => {
+    setBoardState(history.at(-1))
+    setHistory(history.slice(0, -1))
+    setMarkState(whichNextMark(history))
   }
 
   const renderSquare = (i) => {
-    return <Square id={i} value={boardState[i]} handleChange={handleChange} />
+    return <Square id={i} value={boardState[i]} handleChange={handleMark} />
   }
 
   return (
     <div>
       <div className='status'>
         <StatusMessage winner={winner} markState={markState} />
+        <button onClick={() => revertHistory()}>Go Back</button>
       </div>
       <div className='board-row'>
         {renderSquare(0)}

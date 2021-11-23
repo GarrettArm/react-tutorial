@@ -10,9 +10,8 @@ function StatusMessage (props) {
   const { winner, markState } = props
   if (winner) {
     return <div>Winner: {winner}</div>
-  } else {
-    return <div>Next player: {markState}</div>
   }
+  return <div>Next player: {markState}</div>
 }
 
 export default StatusMessage
