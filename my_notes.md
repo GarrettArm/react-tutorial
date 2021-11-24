@@ -209,9 +209,22 @@ it runs whenever the component is rendered.
 It's useful for side-effects that aren't inherently connected to either setA() or its output 'a'.
 A bad example is if you wanted to change the document.title after each setA() call.
 
-I believe all useEffect()'s in a Component run on each render.  There's no "trigger this useEffect() for this useState()".
+All useEffect()'s in a Component run on each render.
 
+```jsx
+useEffect(() => {
+  console.log('run immediately after rendering')
+  return () => { console.log('run immediately before re-rendering') }
+})
+```
 
+Unless you specify a useState variable.  Then useEffect() only runs if that setVariable is changed.
+You must be careful to include all reactive variable used in the useEffect(function).
+
+```jsx
+const [s, setS] = useState()
+useEffect(console.log('only run on changes to "s"'), [s])
+```
 
 
 ## React.Strictmode
