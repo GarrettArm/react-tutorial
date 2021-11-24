@@ -5,6 +5,8 @@ import Game from './Components/game.js'
 import './index.css'
 
 ReactDOM.render(
-  <Game />,
+  <React.StrictMode>
+    <Game />
+  </React.StrictMode>,
   document.getElementById('root')
 )

@@ -170,7 +170,7 @@ class NameForm extends React.Component {
 
 # Starting over
 
-### useState hook
+### useState() hook
 
 notes from: http://www.room51.co.uk/tutorials/react/usestate/part1.html
 
@@ -202,5 +202,19 @@ This may be caused by async, or it may some sort of ACID for the function by Rea
 This means you cannot do `setT('other') then if (t === 'other'), because t will probably still be 'something' until after handleChange is done.
 Something that's acting as I expect is when I put the `winner = hasWinner(boardState)` outside the handler.  Then winner is set on component refresh, & before handleChange() runs.
 
+## useEffect() hook
 
+it runs whenever the component is rendered.
+
+It's useful for side-effects that aren't inherently connected to either setA() or its output 'a'.
+A bad example is if you wanted to change the document.title after each setA() call.
+
+I believe all useEffect()'s in a Component run on each render.  There's no "trigger this useEffect() for this useState()".
+
+
+
+
+## React.Strictmode
+
+Optional.  Intended to catch error.  Reportedly it may cause components to run twice (i.e., two console.log() output per run instead of one.)
 
